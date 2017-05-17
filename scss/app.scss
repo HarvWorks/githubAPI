@@ -1,0 +1,43 @@
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 40px 5%
+}
+
+.positive {
+    color: $positive;
+}
+
+.padding {
+    padding: 20px;
+}
+
+.icon {
+    max-width: 40px;
+    max-height: 40px;
+}
+
+a {
+    cursor: pointer;
+}
+
+.profilePic {
+    margin-top: 32px;
+    max-width: 260px;
+    max-height: 260px;
+}
+.page {
+    display: table;
+    margin: 0 auto;
+}

@@ -1,0 +1,76 @@
+<div class="container">
+    Search for Users: <input type="text" ng-model="searchTerm" placeholder="Search for Users on Github by username" class="form-control" ng-keyup = "findUsers()">
+
+    <!-- Page Picker Modal -->
+    <div id="pagePicker" class="modal fade {{pagePicker.in}}" role="dialog" style= "{{pagePicker.display}}">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="closePagePicker()">&times;</button>
+                    <h4 class="modal-title">Choose a Page</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" ng-model="page" placeholder="Choose a page from 1 to {{ maxPage }}" ng-keypress="pickPageEnter($event)">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="pickPage()">Go to Page</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table" ng-hide = "results.length === 0 || users === 'err'">
+        <thead>
+              <th class="icon">
+
+              </th>
+              <th>
+                  Username
+              </th>
+              <th>
+                  Profile Page
+              </th>
+              <th>
+                  Is Admin
+              </th>
+              <th>
+                  More Info
+              </th>
+        </thead>
+        <tbody>
+
+          <tr ng-repeat="user in users | orderBy:'-score' | filter: searchTerm: strict as results">
+              <td>
+                  <img class="icon" src="{{ user.avatar_url}}" alt="{{ user.login }}'s photo'">
+              </td>
+              <td>
+                  {{ user.login }}
+              </td>
+              <td>
+                  <a href="{{ user.html_url }}">{{ user.html_url }}</a>
+              </td>
+              <td>
+                  {{ user.site_admin }}
+              </td>
+              <td>
+                  <a ng-click= "profilePage(user.login)">Info!</a>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+    <P ng-if="users === 'err'">
+        Please try again at a later time, github has overloaded...
+    </P>
+    <P ng-if="results.length === 0 && searchTerm && users != 'err'">
+        No users match your search....
+    </P>
+    <P ng-if="results.length === 0 && !searchTerm && users != 'err'">
+        Please search for users....
+    </P>
+    <div class="page">
+        <ul class="pagination" ng-hide = "results.length === 0 || users === 'err'" ng-repeat="page in pages">
+            <li class="{{ page.active }}"><a ng-click= "anotherPage(page.page)">{{ page.page }}</a></li>
+        </ul>
+    </div>
+</div>

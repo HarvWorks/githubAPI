@@ -1,0 +1,16 @@
+{
+  "name": "mobile-probefahrt",
+  "app_id": "",
+  "gulpStartupTasks": [
+      "sass",
+      "babel",
+      "watch"
+  ],
+  "watchPatterns": [
+      "www/**/*.html",
+      "www/**/*.css",
+      "www/all-js/*",
+      "!www/lib/**/*"
+  ],
+  "v2": false
+}

@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{{ user.avatar_url }}" alt="user image" class="profilePic">
+        </div>
+        <div class="col-md-9">
+            <h1>{{ user.login }}</h1>
+            <p>Name: {{ user.name }}</p>
+            <p>Email: <a href="malito:{{ user.email }}">{{ user.email }}</a></p>
+            <p>Location: {{ user.location }}</p>
+            <p>Github Profile: <a href="{{ user.html_url }}">{{ user.html_url }}</a></p>
+            <p>Company: {{ user.company }}</p>
+            <p>Website:  <a href="{{ user.blog }}">{{ user.blog }}</a></p>
+            <p>Number of Followers: {{ user.followers}}</p>
+            <p>Number of Following: {{ user.following}}</p>
+        </div>
+    </div>
+
+    <!-- Page Picker Modal -->
+    <div id="pagePicker" class="modal fade {{pagePicker.in}}" role="dialog" style= "{{pagePicker.display}}">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="closePagePicker()">&times;</button>
+                    <h4 class="modal-title">Choose a Page</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" ng-model="page" placeholder="Choose a page from 1 to {{ maxPage }}" ng-keypress="pickPageEnter($event)">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="pickPage()">Go to Page</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>Public Repos: {{user.public_repos}}</h2>
+    <table class="table" ng-hide = "repos.length === 0 || repos === 'err'">
+        <thead>
+              <th>
+                  Name of Git Repo
+              </th>
+              <th>
+                  Repo Page
+              </th>
+              <th>
+                  Language
+              </th>
+              <th>
+                  Created
+              </th>
+              <th>
+                  Updated
+              </th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="repo in repos">
+              <td>
+                  {{ repo.name }}
+              </td>
+              <td>
+                  <a href="{{ repo.svn_url }}">{{ repo.svn_url }}</a>
+              </td>
+              <td>
+                  {{ repo.language }}
+              </td>
+              <td>
+                  {{ repo.created_at | date:'medium'}}
+              </td>
+              <td>
+                  {{ repo.updated_at | date:'medium'}}
+              </td>
+          </tr>
+        </tbody>
+    </table>
+    <P ng-if="repos === 'err'">
+        Please try again at a later time, server overloaded...
+    </P>
+    <P ng-if="repos.length === 0 && repos != 'err'">
+        There are no repos associated with this person...
+    </P>
+    <div class="page">
+        <ul class="pagination" ng-hide = "repos.length === 0 || repos === 'err'" ng-repeat="page in pages">
+            <li class="{{ page.active }}"><a ng-click= "anotherPage(page.page)">{{ page.page }}</a></li>
+        </ul>
+    </div>
+</div>
